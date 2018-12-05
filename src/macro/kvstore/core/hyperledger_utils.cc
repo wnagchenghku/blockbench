@@ -128,7 +128,7 @@ std::string submit_del_txn(const std::string &endpoint,
 }
 
 int find_tip(std::string json) {
-  if (json.find("Failed") != std::string::npos) return -1;
+  if (json.find("Failed") != std::string::npos || json.find("Error") != std::string::npos) return -1;
   int key_pos = json.find("height");
   auto close_quote_pos = json.find('\"', key_pos + 1);
   auto comma_pos = json.find(',', key_pos + 1);

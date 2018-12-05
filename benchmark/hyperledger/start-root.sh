@@ -29,4 +29,4 @@ export PATH=$PATH:$HL_DATA/go/bin
 export LD_LIBRARY_PATH=/usr/local/lib
 
 HOST=`hostname`
-nohup $PEER node start > $LOG_DIR/hl_log_root_$HOST 2>&1 &
+nohup $PEER node start --logging-level=debug > $LOG_DIR/hl_log_root_$HOST 2>&1 &

@@ -40,9 +40,11 @@ if [ $ARCH == "arm64" ]; then
 	cd fabric
 	git checkout v0.6_blockbench
 else
-	git clone https://github.com/hyperledger/fabric
+	# git clone https://github.com/hyperledger/fabric
+	git clone https://github.com/wnagchenghku/fabric
 	cd fabric
-	git checkout e728c5c22160620e189e85be6becb7cbf75d87dc
+	# git checkout e728c5c22160620e189e85be6becb7cbf75d87dc
+	git checkout feature/bitmap
 fi
 cp $HL_HOME/hl_core.yaml peer/core.yaml
 make peer
