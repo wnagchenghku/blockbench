@@ -87,12 +87,14 @@ std::string compose_del(const std::string &key) {
          "\"" + COMMON_COMMAND_SUFFIX;
 }
 
+const unsigned int TX_SIZE = 100;
 std::string compose_donothing_invoke() {
+  std::string data(TX_SIZE, '0');
   return "{\"jsonrpc\": \"2.0\",\"method\": "
          "\"invoke\",\"params\":{\"type\":1,\"chaincodeID\":{\"name\":\"" +
          DONOTHING_CHAINCODE_ID +
          "\"},\"ctorMsg\": {\"function\": \"donothing\", "
-         "\"args\":[]}},\"id\":1}";
+         "\"args\":[" + "\"" + data + "\"" + "]}},\"id\":1}";
 }
 
 void deploy_chain_code(const std::string &endpoint, SmartContractType type) {
