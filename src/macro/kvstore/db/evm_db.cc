@@ -68,11 +68,41 @@ int EVMDB::Update(const string &table, const string &key,
 }
 
 // ignore table
+// update value indicated by a key
+int EVMDB::Update_KeepAlive(const string &table, const string &key,
+                  vector<KVPair> &values, RestClient::Connection* conn) {
+  string val = "";
+  for (auto v : values) {
+    val += v.first + "=" + v.second + " ";
+  }
+  if (evmtype_ == EVMType::Parity) unlock_address(endpoint_, from_address_);
+
+  double start_time = utils::time_now();
+  std::string txn_hash =
+      (sctype_ == BBUtils::SmartContractType::DoNothing)
+          ? submit_do_nothing_txn(endpoint_, from_address_, to_address_)
+          : submit_set_txn(endpoint_, key, val, from_address_, to_address_);
+  txlock_->lock();
+  (*pendingtx_)[txn_hash] = start_time;
+  txlock_->unlock();
+
+  return DB::kOK;
+}
+
+// ignore table
 // ignore field
 // concate values in KVPairs into one long value
 int EVMDB::Insert(const string &table, const string &key,
                   vector<KVPair> &values) {
   return Update(table, key, values);
+}
+
+// ignore table
+// ignore field
+// concate values in KVPairs into one long value
+int EVMDB::Insert_KeepAlive(const string &table, const string &key,
+                  vector<KVPair> &values, RestClient::Connection* conn) {
+  return Update_KeepAlive(table, key, values, conn);
 }
 
 // ignore table
