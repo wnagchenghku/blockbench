@@ -34,9 +34,15 @@ class HyperLedgerDB : public DB {
 
   int Update(const std::string &table, const std::string &key,
              std::vector<KVPair> &values);
+  
+  int Update_KeepAlive(const std::string &table, const std::string &key,
+             std::vector<KVPair> &values, RestClient::Connection* conn);
 
   int Insert(const std::string &table, const std::string &key,
              std::vector<KVPair> &values);
+
+  int Insert_KeepAlive(const std::string &table, const std::string &key,
+             std::vector<KVPair> &values, RestClient::Connection* conn);
 
   int Delete(const std::string &table, const std::string &key);
 

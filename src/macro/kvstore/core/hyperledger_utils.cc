@@ -110,6 +110,12 @@ std::string submit_do_nothing_txn(const std::string &endpoint) {
   return get_json_field(r, "message");
 }
 
+std::string submit_do_nothing_txn_keep_alive(const std::string &endpoint, RestClient::Connection* conn) {
+  auto r = send_jsonrpc_request_keep_alive(endpoint, REQUEST_HEADERS,
+                                compose_donothing_invoke(), conn);
+  return get_json_field(r, "message");
+}
+
 std::string submit_get_txn(const std::string &endpoint,
                            const std::string &key) {
   auto r = send_jsonrpc_request(endpoint, REQUEST_HEADERS, compose_read(key));

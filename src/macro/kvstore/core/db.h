@@ -12,6 +12,7 @@
 #include <vector>
 #include <string>
 #include <unordered_map>
+#include <restclient-cpp/connection.h>
 #include "utils.h"
 
 namespace ycsbc {
@@ -89,6 +90,9 @@ class DB {
   ///
   virtual int Insert(const std::string &table, const std::string &key,
                      std::vector<KVPair> &values) = 0;
+
+  virtual int Insert_KeepAlive(const std::string &table, const std::string &key,
+                     std::vector<KVPair> &values, RestClient::Connection* conn) = 0;
   ///
   /// Deletes a record from the database.
   ///

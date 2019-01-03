@@ -20,6 +20,11 @@ void deploy_chain_code(const std::string &endpoint, SmartContractType type);
 std::string submit_do_nothing_txn(const std::string &endpoint);
 
 ///
+/// submit a async do-nothing transaction to the server
+/// @return transaction hash returned by server
+std::string submit_do_nothing_txn_keep_alive(const std::string &endpoint, RestClient::Connection* conn);
+
+///
 /// submit a async get transaction to the server
 /// @return transaction hash returned by server
 std::string submit_get_txn(const std::string &endpoint, const std::string &key);

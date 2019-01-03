@@ -134,6 +134,9 @@ int main(const int argc, const char *argv[]) {
   ycsbc::CoreWorkload wl;
   wl.Init(props);
 
+  // initialize RestClient
+  RestClient::init();
+
   const int num_threads = stoi(props.GetProperty("threadcount", "1"));
   const int txrate = stoi(props.GetProperty("txrate", "10"));
 

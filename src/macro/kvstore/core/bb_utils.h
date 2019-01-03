@@ -6,6 +6,7 @@
 #include <vector>
 #include <sstream>
 #include <restclient-cpp/restclient.h>
+#include <restclient-cpp/connection.h>
 
 namespace BBUtils {
 
@@ -91,6 +92,13 @@ inline std::string send_jsonrpc_request(const std::string &endpoint,
                                         const std::string &request_header,
                                         const std::string &request_data) {
   return RestClient::post(endpoint, request_header, request_data).body;
+}
+
+inline std::string send_jsonrpc_request_keep_alive(const std::string &endpoint,
+                                        const std::string &request_header,
+                                        const std::string &request_data,
+                                        RestClient::Connection* conn) {
+  return conn->post(endpoint, request_data).body;
 }
 
 }  // BBUtils

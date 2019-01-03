@@ -18,7 +18,7 @@ namespace ycsbc {
 
 class Client {
  public:
-  Client(DB &db, CoreWorkload &wl) : db_(db), workload_(wl) { }
+  Client(DB &db, CoreWorkload &wl) : db_(db), workload_(wl) { conn = new RestClient::Connection(""); conn->SetTimeout(5); conn->AppendHeader("Content-Type", "text/json"); }
   
   virtual bool DoInsert();
   virtual bool DoTransaction();
@@ -35,13 +35,14 @@ class Client {
   
   DB &db_;
   CoreWorkload &workload_;
+  RestClient::Connection* conn;
 };
 
 inline bool Client::DoInsert() {
   std::string key = workload_.NextSequenceKey();
   std::vector<DB::KVPair> pairs;
   workload_.BuildValues(pairs);
-  return (db_.Insert(workload_.NextTable(), key, pairs) == DB::kOK);
+  return (db_.Insert_KeepAlive(workload_.NextTable(), key, pairs, conn) == DB::kOK);
 }
 
 inline bool Client::DoTransaction() {

@@ -45,11 +45,40 @@ int HyperLedgerDB::Update(const string &table, const string &key,
 }
 
 // ignore table
+// update value indicated by a key
+int HyperLedgerDB::Update_KeepAlive(const string &table, const string &key,
+                          vector<KVPair> &values, RestClient::Connection* conn) {
+  string val = "";
+  for (auto v : values) {
+    val += v.first + "=" + v.second + " ";
+  }
+  for (auto &x : val) {
+    if (x == '\"') x = ' ';
+  }
+
+  std::string txn_hash = (sctype_ == BBUtils::SmartContractType::DoNothing)
+                             ? submit_do_nothing_txn_keep_alive(endpoint_, conn)
+                             : submit_set_txn(endpoint_, key, val);
+  txlock_->lock();
+  (*pendingtx_)[txn_hash] = utils::time_now();
+  txlock_->unlock();
+  return DB::kOK;
+}
+
+// ignore table
 // ignore field
 // concate values in KVPairs into one long value
 int HyperLedgerDB::Insert(const string &table, const string &key,
                           vector<KVPair> &values) {
   return Update(table, key, values);
+}
+
+// ignore table
+// ignore field
+// concate values in KVPairs into one long value
+int HyperLedgerDB::Insert_KeepAlive(const string &table, const string &key,
+                          vector<KVPair> &values, RestClient::Connection* conn) {
+  return Update_KeepAlive(table, key, values, conn);
 }
 
 // ignore table
