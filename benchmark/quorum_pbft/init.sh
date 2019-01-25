@@ -16,4 +16,4 @@ cp nodekey/nodekey$2/$1/nodekey $QUO_DATA/geth/nodekey
 #echo nodekey/nodekey$2/$1/nodekey
 
 ${QUORUM} --datadir=$QUO_DATA init $QUO_HOME/genesis$2.json
-${QUORUM} --datadir=$QUO_DATA account new --password <(echo -n "")
+${QUORUM} --datadir=$QUO_DATA --password <(echo -n "") account new
