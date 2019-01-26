@@ -12,5 +12,4 @@ export PATH=$PATH:/usr/local/go/bin
 
 git clone https://github.com/jpmorganchase/quorum.git
 cd quorum
-git checkout v1.2.1
 make all
