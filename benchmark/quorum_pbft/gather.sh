@@ -15,3 +15,7 @@ for host in `cat $HOSTS`; do
 done
 
 cat addPeer.txt
+
+for host in `cat $HOSTS`; do
+  scp addPeer.txt $host:$QUO_HOME
+done
