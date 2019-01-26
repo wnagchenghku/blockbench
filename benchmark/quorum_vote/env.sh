@@ -1,7 +1,7 @@
-QUO_HOME=~/blockchain-perf/benchmark/quorum_vote
+QUO_HOME=~/blockbench/benchmark/quorum_vote
 HOSTS=$QUO_HOME/hosts
 CLIENTS=$QUO_HOME/clients
-QUO_DATA=/data/fuwanzeng/quorum_vote
+QUO_DATA=~/data/fuwanzeng/quorum_vote
 LOG_DIR=$QUO_HOME/../data/vote
 EXE_HOME=$QUO_HOME/../../src/macro/kvstore
 BENCHMARK=ycsb
